@@ -1,0 +1,341 @@
+uid: pm_energy_small
+tags: []
+props:
+  parameters:
+    - description: Title
+      label: Title
+      name: pm_title
+      required: false
+      type: TEXT
+    - context: item
+      description: Power energy (W)
+      label: Power
+      name: pm_power
+      required: true
+      type: TEXT
+    - description: Main icon
+      label: Main icon
+      name: pm_icon
+      required: false
+      type: TEXT
+    - description: Bilance
+      label: Energy bilance
+      name: pm_bilance
+      required: true
+      type: TEXT
+      options:
+        - label: No bilance
+        - label: Resource
+          value: resource
+        - label: Consumption
+          value: consumption
+    - context: item
+      description: Status item (%)
+      label: Status
+      name: pm_status
+      required: false
+      type: TEXT
+    - description: Status units
+      label: Units
+      name: pm_units
+      required: false
+      type: TEXT
+  parameterGroups: []
+timestamp: Mar 1, 2024, 2:52:29 PM
+component: f7-card
+config:
+  style:
+    margin-left: 0px
+    margin-right: 0px
+  stylesheet: >
+    .arrowrightblack {   } .arrowrightblack div {
+       display: block;
+       width: 8px;
+       height: 8px;
+       border-bottom: 2px solid black;
+       border-right: 2px solid black;
+       transform: rotate(-45deg);
+       animation: animateleft 2.4s infinite;
+    }    .arrowrightblack div:nth-child(2) { animation-delay: 1.8s; }         .arrowrightblack div:nth-child(3) { animation-delay: 1.2s; }        .arrowleftblack div:nth-child(4) { animation-delay: 0.6s; }             .arrowleftred {   } .arrowleftred div {
+       display: block;
+       width: 8px;
+       height: 8px;
+       border-bottom: 2px solid red;
+       border-right: 2px solid red;
+       transform: rotate(135deg);
+       animation: animateleft 2.4s infinite;
+    }  .arrowleftred div:nth-child(2) { animation-delay: 1.8s; }         .arrowleftred div:nth-child(3) { animation-delay: 1.2s; }        .arrowleftred div:nth-child(4) { animation-delay: 0.6s; }        @keyframes animateleft {
+        0%{
+            opacity: 0;
+            transform: rotate(-45deg); translate(-20px,-20px);
+        }
+        25%{
+            opacity: 1;
+            transform: rotate(-45deg); translate(0px,0px);
+        }
+        75%{
+            opacity: 1;
+            transform: rotate(-45deg); translate(0px,0px);
+        }
+        100%{
+            opacity: 0;
+            transform: rotate(-45deg); translate(20px,20px);
+        }
+    }                                        .arrowrightblue {  } .arrowrightblue div {
+       display: block;
+       width: 8px;
+       height: 8px;
+       border-bottom: 2px solid blue;
+       border-right: 2px solid blue;
+       transform: rotate(-45deg);
+       animation: animateright 2.4s infinite;
+    }       .arrowrightblue div:nth-child(2) { animation-delay: 0.6s; }         .arrowrightblue div:nth-child(3) { animation-delay: 1.2s; }        .arrowrightblue div:nth-child(4) { animation-delay: 1.8s; }             .arrowrightred {  }      .arrowrightred div {
+       display: block;
+       width: 8px;
+       height: 8px;
+       border-bottom: 2px solid red;
+       border-right: 2px solid red;
+       transform: rotate(-45deg);
+       animation: animateright 2.4s infinite;
+    }         .arrowrightred div:nth-child(2) { animation-delay: 0.6s; }         .arrowrightred div:nth-child(3) { animation-delay: 1.2s; }        .arrowrightred div:nth-child(4) { animation-delay: 1.8s; }        @keyframes animateright {
+        0%{
+            opacity: 0;
+            transform: rotate(-45deg); translate(20px,20px);
+        }
+        25%{
+            opacity: 1;
+            transform: rotate(-45deg); translate(0px,0px);
+        }
+        75%{
+            opacity: 1;
+            transform: rotate(-45deg); translate(0px,0px);
+        }
+        100%{
+            opacity: 0;
+            transform: rotate(-45deg); translate(-20px,-20px);
+        }
+    }                       
+slots:
+  default:
+    - component: f7-card-content
+      config:
+        style:
+          margin: 0px 0px 0px 0px
+          padding: 0px 5px 5px 5px
+      slots:
+        default:
+          - component: f7-row
+            config:
+              style:
+                margin: 0px 0px 0px 0px
+              visible: "=props.pm_title == NULL ? false : true"
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    style:
+                      margin-left: 5px
+                      margin-right: 5px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: =props.pm_title
+                          style:
+                            font-size: 18px
+                            font-weight: bold
+          - component: f7-row
+            config:
+              style:
+                margin-bottom: 0px
+                margin-left: 0px
+                margin-right: 0px
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    style:
+                      margin-left: 0px
+                      margin-right: 0px
+                      width: 64px
+                      height: 64px
+                    visible: '=props.pm_bilance != "consumption" ? true : false'
+                  slots:
+                    default:
+                      - component: oh-icon
+                        config:
+                          width: 64px
+                          height: 64px
+                          icon: '=props.pm_icon == NULL ? "oh:battery" : props.pm_icon'
+                          style:
+                            color: orange
+                - component: f7-col
+                  config:
+                    style:
+                      margin-left: 0px
+                      margin-right: 0px
+                      width: 100px
+                      height: 64px
+                  slots:
+                    default:
+                      - component: f7-row
+                        config:
+                          style:
+                            width: 100px
+                        slots:
+                          default:
+                            - component: f7-col
+                              config:
+                                style:
+                                  width: 100px
+                                visible: "=props.pm_power == NULL ? false : true"
+                              slots:
+                                default:
+                                  - component: Label
+                                    config:
+                                      text: =Number.parseFloat(items[props.pm_power].state.split(" ")[0]) + ' W'
+                            - component: f7-col
+                              config:
+                                style:
+                                  align-items: center
+                                  display: flex
+                                  flex-direction: column
+                                  width: 100px
+                                visible: '=props.pm_bilance == "resource" && Number.parseFloat(items[props.pm_power].state) > 0 ? true : false'
+                              slots:
+                                default:
+                                  - component: f7-row
+                                    config:
+                                      class: arrowrightblue
+                                      style:
+                                        padding: 5px 50px 5px 5px
+                                    slots:
+                                      default:
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblue div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblue div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblue div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblue div
+                            - component: f7-col
+                              config:
+                                style:
+                                  align-items: center
+                                  display: flex
+                                  flex-direction: column
+                                  width: 100px
+                                visible: '=props.pm_bilance == "resource" && Number.parseFloat(items[props.pm_power].state) < 0 ? true : false'
+                              slots:
+                                default:
+                                  - component: f7-row
+                                    config:
+                                      class: arrowrightred
+                                      style:
+                                        padding: 5px 50px 5px 5px
+                                    slots:
+                                      default:
+                                        - component: Label
+                                          config:
+                                            class: arrowrightred div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightred div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightred div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightred div
+                            - component: f7-col
+                              config:
+                                style:
+                                  align-items: center
+                                  display: flex
+                                  flex-direction: column
+                                  width: 100px
+                                visible: '=props.pm_bilance == "consumption" && Number.parseFloat(items[props.pm_power].state) > 0 ? true : false'
+                              slots:
+                                default:
+                                  - component: f7-row
+                                    config:
+                                      class: arrowrightblack
+                                      style:
+                                        padding: 5px 50px 5px 5px
+                                    slots:
+                                      default:
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblack div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblack div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblack div
+                                        - component: Label
+                                          config:
+                                            class: arrowrightblack div
+                            - component: f7-col
+                              config:
+                                style:
+                                  align-items: center
+                                  display: flex
+                                  flex-direction: column
+                                  width: 100px
+                                visible: '=props.pm_bilance == "consumption" && Number.parseFloat(items[props.pm_power].state) < 0 ? true : false'
+                              slots:
+                                default:
+                                  - component: f7-row
+                                    config:
+                                      class: arrowleftred
+                                      style:
+                                        padding: 5px 50px 5px 5px
+                                    slots:
+                                      default:
+                                        - component: Label
+                                          config:
+                                            class: arrowleftred div
+                                        - component: Label
+                                          config:
+                                            class: arrowleftred div
+                                        - component: Label
+                                          config:
+                                            class: arrowleftred div
+                                        - component: Label
+                                          config:
+                                            class: arrowleftred div
+                            - component: f7-col
+                              config:
+                                style:
+                                  width: 100px
+                                visible: "=props.pm_status == NULL ? false : true"
+                              slots:
+                                default:
+                                  - component: Label
+                                    config:
+                                      height: 50px
+                                      text: '=props.pm_units == NULL ? Number.parseFloat(items[props.pm_status].state.split(" ")[0]) : Math.abs(Number.parseFloat(items[props.pm_status].state.split(" ")[0])) + " " + props.pm_units'
+                - component: f7-col
+                  config:
+                    style:
+                      margin-left: 0px
+                      margin-right: 0px
+                      width: 64px
+                      height: 64px
+                    visible: '=props.pm_bilance == "consumption" ? true : false'
+                  slots:
+                    default:
+                      - component: oh-icon
+                        config:
+                          width: 64px
+                          height: 64px
+                          icon: '=props.pm_icon == NULL ? "oh:battery" : props.pm_icon'
+                          style:
+                            color: orange
+ 
